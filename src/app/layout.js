@@ -1,16 +1,11 @@
-import localFont from "next/font/local";
+// import localFont from "next/font/local";
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./globals.css";
+import Sidebar from "@/components/Sidebar";
+import Header from "@/components/Header";
+import { Ruwudu } from "next/font/google";
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
+const poppins = Ruwudu({ subsets: ["latin"], weight: "700" });
 
 export const metadata = {
   title: "Create Next App",
@@ -20,10 +15,25 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+      <body className={poppins.className}>
+        <div className="container-fluid">
+          <div className="row">
+            <div className="col-md-3  vh-100 position-fixed  text-white p-0">
+              <Sidebar />
+            </div>
+
+            {/* Right side   */}
+            <div
+              className="col-md-9 offset-md-3 p-0"
+              style={{ overflowY: "auto", height: "100vh" }}
+            >
+              <div className="position-sticky top-0 bg-white z-index-1000">
+                <Header />
+              </div>
+              {children}
+            </div>
+          </div>
+        </div>
       </body>
     </html>
   );
